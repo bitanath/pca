@@ -1,0 +1,7 @@
+{ 
+    "esversion": 5,
+    "asi": true,
+    "loopfunc": true,
+    "eqnull": true,
+    "curly": false
+ }
