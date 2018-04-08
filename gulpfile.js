@@ -14,6 +14,6 @@ gulp.task('default', function () {
             collapseWhitespace: true,
             conservativeCollapse: true,minifyJS:true})).pipe(rename(function(path) {
                 path.extname = ".min" + path.extname;
-            })).pipe(gulp.dest('.'));
+            })).pipe(gulp.dest('.').pipe(gulp.dest('C:\\Users\\Lenovo\\Desktop\\apptools\\public\\js')));
     })
 });
