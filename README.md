@@ -6,7 +6,7 @@ Use the global PCA object to compute stuff.
 
 ### Get it from below, or utilize pca.min.js from this repository
 
-`https://cdn.apptools.tech/pca.min.js`
+`https://cdn.apptools.tech/js/pca.min.js`
 
 ## Samples
 
