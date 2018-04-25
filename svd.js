@@ -25,8 +25,8 @@ function svd(A) {
 	
 	if (m < n) throw "Need more rows than columns"
 	
-	var e = new Array(n);
-	var q = new Array(n);
+	var e = new Array(n); //vector1
+	var q = new Array(n); //vector2
 	for (i=0; i<n; i++) e[i] = q[i] = 0.0;
 	var v = rep([n,n],0);
 
@@ -66,9 +66,9 @@ function svd(A) {
 	
 	for (i=0; i < n; i++)
 	{	
-		e[i]= g;
-		s= 0.0;
-		l= i+1;
+		e[i]= g; //vector
+		s= 0.0; //sum
+		l= i+1; //stays i+1
 		for (j=i; j < m; j++) 
 			s += (u[j][i]*u[j][i]);
 		if (s <= tolerance)
@@ -118,14 +118,14 @@ function svd(A) {
 			x=y
 	}
 	
-	// accumulation of right hand gtransformations
+	// accumulation of right hand transformations
 	for (i=n-1; i != -1; i+= -1)
 	{	
 		if (g != 0.0)
 		{
 		 	h= g*u[i][i+1]
 			for (j=l; j < n; j++) 
-				v[j][i]=u[i][j]/h
+				v[j][i]=u[i][j]/h //u is array, v is square of columns
 			for (j=l; j < n; j++)
 			{	
 				s=0.0

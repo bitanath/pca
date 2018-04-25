@@ -1,5 +1,4 @@
 var PCA = (function () {
-
     /**
      * The first step is to subtract the mean and center data
      * 
@@ -194,5 +193,166 @@ var PCA = (function () {
         multiply:multiply,
         clone:clone,
         scale:scale
+    }
+})();
+
+var SVD = (function(){
+    function calculate(matrix){
+        var iterations= 50;
+        var rows = matrix.length;
+        var columns = matrix[0].length;
+        if(rows<columns)
+        return false;
+        var array = clone(matrix);
+        var unit = fill(rows,columns,0);
+
+    }
+    function distance(a,b){
+        return Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
+    }
+    function householder(array,rows,columns){
+        var vector1 = [],vector2=[],hg=0.0,hf=0.0,hh=0.0,i=0,j=0,k=0,x=0,y=0;
+        var square = fill([columns,columns],0);
+        for(i=0;i<columns;i++){
+            var sum = 0;
+            vector1[i] = 0;
+            for(j=i;j<rows;j++){
+                sum+=(array[i][j]*array[j][i])
+            }
+            if(sum<=0.00000001)
+            hg=0;
+            else{
+                 hf = array[i][i]; //get diagonal element of array
+                hg = hf>=0.0?-Math.sqrt(sum):Math.sqrt(sum);
+                 hh = hf*hg-sum;
+                array[i][i] = hf-hg;
+                for(j=i+1;j<columns;j++){
+                    sum = 0.0;
+                    //first sum
+                    for(k=i;k<rows;k++)
+                        sum += array[k][i]*array[k][j];
+                    //alter hf
+                    hf= sum/hh;
+                    //second sum
+                    for(k=i;k<rows;k++)
+                    array[k][j]+=hf*array[k][i];
+                }
+            }
+            vector2[i] = hg;
+            sum = 0.0;
+            for(j=i+1;j<columns;j++)
+            sum = sum+Math.pow(array[i][j],2);
+
+            if(sum<=0.00000001)
+            hg = 0.0;
+            else{
+                hf = array[i][i+1];
+                hg = hf>=0.0?-Math.sqrt(sum):Math.sqrt(sum);
+                hh = hf*hg - sum;
+                array[i][i+1] = hf-hg;
+
+                for(j=i+1;j<columns;j++)
+                vector1[j] = array[i][j]/hh;
+                for(j=i+1;j<rows;j++){
+                    sum=0.0;
+                    for(k=i+1;k<columns;k++){
+                        sum+= array[j][k]*array[i][k]
+                    }
+                    for(k=i+1;k<columns;k++){
+                        array[j][k] += sum*vector1[k]
+                    }
+                }
+            }
+            var y = Math.abs(vector1[i])+Math.abs(vector2[i]);
+            if(y>x)
+            x=y;
+        }
+        
+        function rhst(){
+            var index = i+1;
+            for(i=columns-1;i>0;i+=-1){
+                if(hg!==0){
+                    hh = hg*vector1[i][i+1];
+                    for(j=index;j<columns;j++)
+                    square[j][i] = array[i][j]/hh;
+                    for(j=index;j<columns;j++){
+                        sum = 0.0
+                        for (k=i+1;k<columns;k++)
+                        sum += array[i][k]*square[k][j];
+                        for (k=i+1;k<columns;k++)
+                        square[k][j]+=(sum*square[k][i])
+                    }
+                }
+                //convert to diagonal matrix
+                for(j=index;j<columns;j++){
+                    square[i][j] = 0;
+                    square[j][i]=0;
+                }
+                square[i][i] = 1;
+                hg = vector1[i];
+                index = i;
+            }
+        }
+
+        function lhst(){
+            for (i=columns-1; i != -1; i+= -1)
+            {	
+                var index= i+1;
+                hg= vector2[i]
+                for (j=index; j < columns; j++) 
+                    array[i][j] = 0;
+                if (hg !== 0.0)
+                {
+                    hh= array[i][i]*hg
+                    for (j=index; j < columns; j++)
+                    {
+                        sum=0.0
+                        for (k=index; k < rows; k++) sum += array[k][i]*array[k][j];
+                        hf= sum/hh
+                        for (k=i; k < rows; k++) array[k][j]+=hf*array[k][i];
+                    }
+                    for (j=i; j < rows; j++) array[j][i] = array[j][i]/hg;
+                }
+                else
+                    for (j=i; j < rows; j++) array[j][i] = 0;
+                array[i][i] += 1;
+            }
+        }
+        function diagonalize(){
+            var precision = precision * x;
+            for(k=columns-1;k!= -1;k+=-1){
+                for(var iteration=0;iteration<iterations;iteration++){
+                    var test_convergence = false;
+                    for(var l=k;l!=-1;l+=-1){
+                        if(Math.abs(vector1[l]<=precision)){
+                            test_convergence=true;
+                            break;
+                        }
+                    }
+                    if(!test_convergence){
+                        
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+    function fill(rows,columns,value){
+        var result = [];
+        for(var i=0;i<rows;i++){
+            result[i] = [];            
+            for(var j=0;j<columns;j++){
+                result[i][j] = value;             
+            }
+        }
+        return result;
+    }
+    
+    function clone(arr) {
+        var string = JSON.stringify(arr);
+        var result = JSON.parse(string);
+        return result;
     }
 })();
