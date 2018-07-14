@@ -1,8 +1,15 @@
-# Principal Components Analysis in node or the browser
+# Principal Components Analysis in Javascript!
 
-A JS library to compute Principal Components from a given matrix of data. Use in either node.js or the browser.
+A JS library to compute Principal Components from a given matrix of data. Use in either node.js or the browser. Look below for the API and some ideas 💡.
 
-Use by accessing the singleton PCA, and by the methods as described below.
+CDN: [https://cdn.jsdelivr.net/npm/pca-js@1.0.0/pca.min.js](https://cdn.jsdelivr.net/npm/pca-js@1.0.0/pca.min.js)
+
+NPM: `npm install --save pca-js`
+
+Usage:
+
+Node 🛠: `var PCA = require('pca-js')`
+Browser 🌎: `PCA (global)`
 
 ## How to use the API
 
