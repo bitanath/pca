@@ -1,6 +1,6 @@
-# Principal Components Analysis in the browser
+# Principal Components Analysis in node or the browser
 
-A library to compute Principal Components from a given matrix of data. Use in either node.js or the browser.
+A JS library to compute Principal Components from a given matrix of data. Use in either node.js or the browser.
 
 Use by accessing the singleton PCA, and by the methods as described below.
 

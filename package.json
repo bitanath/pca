@@ -40,5 +40,8 @@
     "ml",
     "data",
     "dimensionality"
-  ]
+  ],
+  "dependencies": {
+    "gulp": "^3.9.1"
+  }
 }
