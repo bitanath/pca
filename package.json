@@ -1,5 +1,5 @@
 {
-  "name": "pca",
+  "name": "pca-js",
   "version": "1.0.0",
   "description": "Principal Components Analysis in javascript",
   "main": "pca.js",
@@ -32,5 +32,16 @@
   "homepage": "",
   "dependencies": {
     "gulp": "^3.9.1"
-  }
+  },
+  "keywords": [
+    "principal",
+    "components",
+    "analysis",
+    "pca",
+    "machine",
+    "learning",
+    "ml",
+    "data",
+    "dimensionality"
+  ]
 }

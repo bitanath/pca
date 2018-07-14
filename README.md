@@ -1,161 +1,115 @@
 # Principal Components Analysis in the browser
 
-A library to compute Principal Components from a given matrix of data.
+A library to compute Principal Components from a given matrix of data. Use in either node.js or the browser.
 
-Use the global PCA object to compute stuff.
+Use by accessing the singleton PCA, and by the methods as described below.
 
-### Get it from below, or utilize pca.min.js from this repository
+## How to use the API
 
-`https://cdn.apptools.tech/js/pca.min.js`
+All methods are exposed through `PCA` global variable
 
-## Samples
+Say you have data for marks of a class 4 students in 3 examinations on the same subject:
 
-Determine the deviation matrix from data (Data-mean)
-```js
-var matrix = PCA.computeDeviationMatrix([[1,2,3],[2,5,4],[3,4,6]]);
-//Outputs the following deviation matrix for the given example
-// [
-//     [-1, -1.6666666666666665, -1.333333333333333],
-//     [
-//         0,
-//         1.3333333333333335, -0.33333333333333304
-//     ],
-//     [
-//         1,
-//         0.3333333333333335,
-//         1.666666666666667
-//     ]
-// ]
+```
+Student 1: 40,50,60
+Student 2: 50,70,60
+Student 3: 80,70,90
+Student 4: 50,60,80
 ```
 
-Then calculate the deviation sum of squares and variance covariance matrix from this 
+You want to examine whether it is possible to come up with a single descriptive set of scores which explains performance across the class. Alternatively, whether it would make sense to replace 3 exams with just one (and reduce stress on students).
 
+
+First get the set of eigenvectors and eigenvalues (principal components and adjusted loadings)
 ```js
-var C = PCA.computeVarianceCovariance(PCA.computeDeviationScores(matrix),false); //compute variance for population and not sample, use true to compute for sample and not population
-//Outputs the following Variance Covariance Matrix
-// [
-//     [
-//         0.6666666666666666,
-//         0.6666666666666666,
-//         1
-//     ],
-//     [
-//         0.6666666666666666,
-//         1.5555555555555556,
-//         0.7777777777777777
-//     ],
-//     [
-//         1,
-//         0.7777777777777777,
-//         1.5555555555555554
-//     ]
-// ]
-```
-
-Then, calculate the eigenvectors and use it to compute adjusted data from the reduced eigenvectors. Eliminate low variance explaining vectors and feed it into the function to generate the final, adjusted dataset.
-
-```js
-var vectors = PCA.computeSVD(C); //returns [{eigenvalue:n,vector:[array]}]
-//Outputs the following Singular Value Decomposition formatted by eigenvalues and unit vectors for a given value
+var data = [[40,50,60],[50,70,60],[80,70,90],[50,60,80]];
+var vectors = PCA.getEigenVectors(data);
+//Outputs 
 // [{
-//         "eigenvalue": 2.948821334907717,
-//         "vector": [
-//             0.4623445500670477,
-//             0.5904931455695707,
-//             0.6614796762249409
-//         ]
-//     },
-//     {
-//         "eigenvalue": 0.82895644287006,
-//         "vector": [
-//             0.20931620720588442, -0.7976003572490669,
-//             0.5657034519225638
-//         ]
-//     },
-//     {
-//         "eigenvalue": 0,
-//         "vector": [-0.8616404368553292,
-//             0.12309149097933254,
-//             0.49236596391733106
-//         ]
-//     }
-// ]
-var adjustedData = PCA.computeAdjustedData([[1,2,3],[2,5,4],[3,4,6]],vectors[0].vector,vectors[1].vector); //selects data using the first 2 principal components from above example
-//{
-//     "finalWithoutMean": [
-//         [
-//             0.19913512615789314,
-//             0.23724316938932855,
-//             0.2891756784289814
-//         ],
-//         [
-//             0.3563872447166794, -1.2237596710343752,
-//             0.9296175960127827
-//         ]
-//     ],
-//     "finalWithMean": [
-//         [
-//             2.199135126157893,
-//             3.903909836055995,
-//             4.622509011762315
-//         ],
-//         [
-//             2.3563872447166796,
-//             2.442906995632291,
-//             5.262950929346116
-//         ]
-//     ]
-// }
+//     "eigenvalue": 520.0992658908312,
+//     "vector": [0.744899700771276, 0.2849796479974595, 0.6032503924724023]
+// }, {
+//     "eigenvalue": 78.10455398035167,
+//     "vector": [0.2313199078283626, 0.7377809866160473, -0.6341689964277106]
+// }, {
+//     "eigenvalue": 18.462846795484058,
+//     "vector": [0.6257919271076777, -0.6119361208615616, -0.4836513702572988]
+// }]
 ```
 
-Finally, in case you want to skip all these steps, and simply get the principal component, or select the first principal component alone:
+Now you'd need to find a set of eigenvectors that would explain a decent amount of variance across your exams (thus telling you if 1 test or 2 tests would suffice instead of three)
 
 ```js
-var vectors = PCA.getEigenVectors([[1,2,3],[2,5,4],[3,4,6]]); //Get top eigenvectors (principal components)
-//Simply gets the eigenvectors without the intermediate steps
-// [{
-//         "eigenvalue": 2.948821334907717,
-//         "vector": [
-//             0.4623445500670477,
-//             0.5904931455695707,
-//             0.6614796762249409
-//         ]
-//     },
-//     {
-//         "eigenvalue": 0.82895644287006,
-//         "vector": [
-//             0.20931620720588442, -0.7976003572490669,
-//             0.5657034519225638
-//         ]
-//     },
-//     {
-//         "eigenvalue": 0,
-//         "vector": [-0.8616404368553292,
-//             0.12309149097933254,
-//             0.49236596391733106
-//         ]
-//     }
-// ]
-var adjustedData = PCA.analyseTopResult([[1,2,3],[2,5,4],[3,4,6]]); //Get adjusted data using only the first eigenvector
+var first = PCA.computePercentageExplained(vectors,vectors[0])
+// 0.8434042149581044
+var topTwo = PCA.computePercentageExplained(vectors,vectors[0],vectors[1])
+// 0.9700602484397556
+```
+
+So if you wanted to have 97% certainty, that someone wouldn't just flunk out accidentally, you'd take 2 exams. But let's say you just wanted to take 1, explaining 84% of variance is good enough. And instead of taking the examination again, you just wanted a normalized score
+
+```js
+var adData = PCA.computeAdjustedData(data,vectors[0])
 // {
-//     "finalWithoutMean": [
-//         [
-//             0.19913512615789314,
-//             0.23724316938932855,
-//             0.2891756784289814
-//         ]
+//     "adjustedData": [
+//         [-22.27637101744241, -9.127781049780463, 31.316721747529886, 0.08743031969298887]
 //     ],
-//     "finalWithMean": [
-//         [
-//             2.199135126157893,
-//             3.903909836055995,
-//             4.622509011762315
-//         ]
+//     "formattedAdjustedData": [
+//         [-22.28, -9.13, 31.32, 0.09]
+//     ],
+//     "avgData": [
+//         [-55, -62.5, -72.5],
+//         [-55, -62.5, -72.5],
+//         [-55, -62.5, -72.5],
+//         [-55, -62.5, -72.5]
+//     ],
+//     "selectedVectors": [
+//         [0.744899700771276, 0.2849796479974595, 0.6032503924724023]
 //     ]
 // }
 ```
 
-Utilizes the awesome numeric.js library with some modifications for performing the Singular Value Decomposition of a Matrix. Below is their copyright notice.
+The adjustedData is centered (mean = 0), but you could always set the mean to something like 50, to get scores of `[-22.27637101744241, -9.127781049780463, 31.316721747529886, 0.08743031969298887].map(score=>Math.round(score+50))` equal to `[28, 41, 81, 50]` , and that's how well your students would have done, in the order of students.
+
+### Other cool stuff that's possible
+
+#### Compression (lossy):
+```js
+var compressed = adData.formattedAdjustedData;
+//[
+//         [-22.28, -9.13, 31.32, 0.09]
+//     ]
+var uncompressed = PCA.computeOriginalData(compressed,adData.selectedVectors,adData.avgData);
+//uncompressed.formattedOriginalData (lossy since 2 eigenvectors are removed)
+// [
+//     [38.4, 56.15, 59.06],
+//     [48.2, 59.9, 66.99],
+//     [78.33, 71.43, 91.39],
+//     [55.07, 62.53, 72.55]
+// ]
+```
+
+Compare this to the original data to understand just how lossy the compression was
+```
+//Original Data
+[
+    [40, 50, 60],
+    [50, 70, 60],
+    [80, 70, 90],
+    [50, 60, 80]
+]
+//Uncompressed Data
+[
+    [38.4, 56.15, 59.06],
+    [48.2, 59.9, 66.99],
+    [78.33, 71.43, 91.39],
+    [55.07, 62.53, 72.55]
+]
+```
+
+## Dependencies
+
+Also utilizes some code from the awesome numeric.js library with some modifications for performing the Singular Value Decomposition of a Matrix, the original code of which was written in C from [http://www.public.iastate.edu/~dicook/JSS/paper/code/svd.c](http://www.public.iastate.edu/~dicook/JSS/paper/code/svd.c). Below is their copyright notice.
 
 ```
 Numeric Javascript

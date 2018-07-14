@@ -4,3 +4,5 @@ node_modules/
 test.html
 nodemon.json
 gulpfile.js
+.jshintrc
+package-lock.json
