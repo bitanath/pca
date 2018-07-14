@@ -106,6 +106,47 @@ Compare this to the original data to understand just how lossy the compression w
     [55.07, 62.53, 72.55]
 ]
 ```
+## List of Methods
+
+
+#### computeDeviationMatrix(data) 
+Find centered matrix from original data
+
+#### computeDeviationScores(centeredMatrix)
+Find deviation from mean for values in matrix
+
+#### computeSVD(deviationScores)
+Singular Value Decomposition of matrix
+
+#### computePercentageExplained(allvectors, ...selected)
+Find percentage explained variance by selected vectors as opposed to the whole
+
+#### computeOriginalData(compressedData,selectedVectors,avgData)
+Get original data from the adjusted data after selecting a few eigenvectors
+
+#### computeVarianceCovariance(devSumOfSquares,isSample)
+Get variance covariance matrix from the data, adjust n by one if the data is from a sample
+
+#### computeAdjustedData(initialData, ...selectedVectors)
+Get adjusted data using principal components as selected
+
+#### getEigenVectors(initialData)
+Get the principal components of data using the steps outlined above.
+
+#### analyseTopResult(initialData)
+Same as computeAdjustedData(initialData,vectors[0]). Selecting only the top eigenvector which explains the most variance.
+
+#### transpose(A)
+Utility function to transpose a matrix A to A(T)
+
+#### multiply(A,B)
+Utility function to multiply AXB
+
+#### clone(A)
+Utility function to clone a matrix A
+
+#### scale(A,n)
+Utility function to scale all elements in A by a factor of n
 
 ## Dependencies
 
