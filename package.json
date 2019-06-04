@@ -9,7 +9,7 @@
     "gulp-minifier": "^1.2.2",
     "gulp-rename": "^1.2.2",
     "gulp-strip-comments": "^2.5.2",
-    "gulp-watch": "^5.0.0"
+    "gulp-watch": "^5.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -42,6 +42,6 @@
     "dimensionality"
   ],
   "dependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^4.0.2"
   }
 }
