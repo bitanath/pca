@@ -42,7 +42,6 @@ var PCA = (function () {
      */
     function computeSVD(matrix) {
         var result = svd(matrix);
-        console.log(result)
         var eigenvectors = result.U;
         var eigenvalues = result.S;
         var results = eigenvalues.map(function (value, i) {
@@ -123,7 +122,6 @@ var PCA = (function () {
         var sorted = eigenVectors.sort(function (a, b) {
             return b.eigenvalue - a.eigenvalue;
         });
-        console.log('Sorted Vectors', sorted);
         var selected = sorted[0].vector;
         return computeAdjustedData(data, selected);
     }
