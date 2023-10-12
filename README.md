@@ -155,20 +155,5 @@ Utility function to clone a matrix A
 #### scale(A,n)
 Utility function to scale all elements in A by a factor of n
 
-## Dependencies
-
-Also utilizes some code from the awesome numeric.js library with some modifications for performing the Singular Value Decomposition of a Matrix, the original code of which was written in C from [http://www.public.iastate.edu/~dicook/JSS/paper/code/svd.c](http://www.public.iastate.edu/~dicook/JSS/paper/code/svd.c). Below is their copyright notice.
-
-```
-Numeric Javascript
-Copyright (C) 2011 by Sébastien Loisel
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so.
-```
 
 `LICENSE: MIT`
