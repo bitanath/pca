@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Browser ESM Test Results</h2>
+    <table border="1" id="results">
+        <tr><th>Test</th><th>Result</th></tr>
+    </table>
+    
+    <script type="module">
+        import PCA from '../dist/pca.mjs';
+        
+        const table = document.getElementById('results');
+        
+        function addResult(test, result) {
+            const row = table.insertRow();
+            row.insertCell(0).textContent = test;
+            row.insertCell(1).textContent = result;
+        }
+        
+        addResult('PCA import', typeof PCA);
+        addResult('computeDeviationMatrix', typeof PCA?.computeDeviationMatrix);
+        addResult('Available methods', Object.keys(PCA || {}).join(', '));
+    </script>
+</body>
+</html>

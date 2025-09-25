@@ -6,3 +6,4 @@ nodemon.json
 gulpfile.js
 .jshintrc
 package-lock.json
+.DS_Store

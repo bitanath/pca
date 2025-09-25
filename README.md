@@ -1,15 +1,26 @@
+# New in v2 🌟
+Massive changes in v2:
+- Rewrote the entire codebase to typescript 
+- Rollup to UMD, CJS and ESM whichever you prefer
+- Test cases to prevent regressions and keep behavior consistent
+- Package level tests in order to prevent downstream breakages on dependents
+
+**Bugfixes:** Closed the 4 open issues with chonky fixes. Closed all PRs since full rewrite. Open new Issues as required.
+
+**How to use now:** Same as below except for the changed CDN links. I've inline edited the older readme in order to accurately reflect links and examples using modern ESM/UMD/CJS. 
+
 # Principal Components Analysis in Javascript!
 
-A JS library to compute Principal Components from a given matrix of data. Use in either node.js or the browser. Look below for the API and some ideas 💡.
+### Usage:
 
-CDN: [https://cdn.jsdelivr.net/npm/pca-js@1.0.0/pca.min.js](https://cdn.jsdelivr.net/npm/pca-js@1.0.0/pca.min.js)
+**🛠️ Node.js CommonJS**: `const PCA = require('pca-js')`
+**🛠️ Node.js ESM**: `import PCA from 'pca-js'`
+**🌍 Browser (Global)**: `<script src="https://cdn.jsdelivr.net/npm/pca-js/dist/pca.js"></script>` → `window.PCA` 
+**🌍 Browser (ESM)**: `import PCA from 'https://cdn.jsdelivr.net/npm/pca-js/dist/pca.mjs'`
 
-NPM: `npm install --save pca-js`
-
-Usage:
-
-Node 🛠: `var PCA = require('pca-js')`
-Browser 🌎: `PCA (global)`
+### CDN: 
+**UMD (Browser Global):** [https://cdn.jsdelivr.net/npm/pca-js/dist/pca.js](https://cdn.jsdelivr.net/npm/pca-js/dist/pca.js)
+**ESM (Browser Module):** [https://cdn.jsdelivr.net/npm/pca-js/dist/pca.mjs](https://cdn.jsdelivr.net/npm/pca-js/dist/pca.mjs)
 
 ## How to use the API
 

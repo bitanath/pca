@@ -1,1 +1,0 @@
-exports.PCA = require('./pca');
