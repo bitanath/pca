@@ -1,15 +1,26 @@
+# New in v2 🌟
+Massive changes in v2:
+- Rewrote the entire codebase to typescript 
+- Rollup to UMD, CJS and ESM whichever you prefer
+- Test cases to prevent regressions and keep behavior consistent
+- Package level tests in order to prevent downstream breakages on dependents
+
+**Bugfixes:** Closed the 4 open issues with chonky fixes. Closed all PRs since full rewrite. Basically optimized matmul ops now to prevent OOMs and optimized build processes to port typescript. Feel free to Open new Issues/PRs as required.
+
+**How to use now:** Same as below except for the changed CDN links. I've inline edited the older readme in order to accurately reflect links and examples using modern ESM/UMD/CJS. 
+
 # Principal Components Analysis in Javascript!
 
-A JS library to compute Principal Components from a given matrix of data. Use in either node.js or the browser. Look below for the API and some ideas 💡.
+### Usage:
 
-CDN: [https://cdn.jsdelivr.net/npm/pca-js@1.0.0/pca.min.js](https://cdn.jsdelivr.net/npm/pca-js@1.0.0/pca.min.js)
+**🛠️ Node.js CommonJS**: `const PCA = require('pca-js')`
+**🛠️ Node.js ESM**: `import PCA from 'pca-js'`
+**🌍 Browser (Global)**: `<script src="https://cdn.jsdelivr.net/npm/pca-js/dist/pca.js"></script>` → `window.PCA` 
+**🌍 Browser (ESM)**: `import PCA from 'https://cdn.jsdelivr.net/npm/pca-js/dist/pca.mjs'`
 
-NPM: `npm install --save pca-js`
-
-Usage:
-
-Node 🛠: `var PCA = require('pca-js')`
-Browser 🌎: `PCA (global)`
+### CDN: 
+**UMD (Browser Global):** [https://cdn.jsdelivr.net/npm/pca-js/dist/pca.js](https://cdn.jsdelivr.net/npm/pca-js/dist/pca.js)
+**ESM (Browser Module):** [https://cdn.jsdelivr.net/npm/pca-js/dist/pca.mjs](https://cdn.jsdelivr.net/npm/pca-js/dist/pca.mjs)
 
 ## How to use the API
 
@@ -115,7 +126,6 @@ Compare this to the original data to understand just how lossy the compression w
 ```
 ## List of Methods
 
-
 #### computeDeviationMatrix(data) 
 Find centered matrix from original data
 
@@ -126,7 +136,7 @@ Find deviation from mean for values in matrix
 Singular Value Decomposition of matrix
 
 #### computePercentageExplained(allvectors, ...selected)
-Find percentage explained variance by selected vectors as opposed to the whole
+Find the cumulative percentage explained variance by selected vectors (select vectors accordingly to view specific explained variance)
 
 #### computeOriginalData(compressedData,selectedVectors,avgData)
 Get original data from the adjusted data after selecting a few eigenvectors
@@ -143,17 +153,9 @@ Get the principal components of data using the steps outlined above.
 #### analyseTopResult(initialData)
 Same as computeAdjustedData(initialData,vectors[0]). Selecting only the top eigenvector which explains the most variance.
 
-#### transpose(A)
-Utility function to transpose a matrix A to A(T)
 
-#### multiply(A,B)
-Utility function to multiply AXB
-
-#### clone(A)
-Utility function to clone a matrix A
-
-#### scale(A,n)
-Utility function to scale all elements in A by a factor of n
-
-
-`LICENSE: MIT`
+## License (has been changed following v2.0 release)
+This license will remain consistent going forward with subsequent versions. 
+The license is GPL which is a better license imho for copyleft and packages that might derive this package.
+Was MIT earlier.
+`LICENSE: GPL 3.0`
