@@ -6,7 +6,7 @@ export default [
     input: 'index.ts',
     output: [
       { file: 'dist/pca.js', format: 'umd', name: 'PCA' },
-      { file: 'dist/pca.cjs', format: 'cjs'},
+      { file: 'dist/pca.cjs', format: 'cjs', name: 'PCA' },
       { file: 'dist/pca.mjs', format: 'es' }
     ],
     plugins: [typescript()]

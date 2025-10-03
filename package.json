@@ -2,9 +2,18 @@
   "name": "pca-js",
   "version": "2.0.2",
   "description": "Principal Components Analysis in javascript",
-  "main": "./dist/pca.js",
+  "main": "./dist/pca.cjs",
   "module": "./dist/pca.mjs",
   "types": "./dist/pca.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/pca.cjs",
+      "import": "./dist/pca.mjs",
+      "default": "./dist/pca.js"
+    }
+  },
+  "unpkg": "./dist/pca.js",
+  "jsdelivr": "./dist/pca.js",
   "files": [
     "dist/"
   ],
