@@ -18,8 +18,8 @@ Massive changes in v2:
 
 ### Browser:
 Always get the updated CDN links at [JSDELIVR](https://www.jsdelivr.com/package/npm/pca-js). The below are just provided as an example.
-- **🌍 Browser (Global)**: `<script src="https://cdn.jsdelivr.net/npm/pca-js@2.0.5/dist/pca.min.js"></script>` → `window.PCA` 
-- **🌍 Browser (ESM)**: `import PCA from 'https://cdn.jsdelivr.net/npm/pca-js@2.0.5/+esm'`
+- **🌍 Browser (Global)**: `<script src="https://cdn.jsdelivr.net/npm/pca-js@2.0.6/dist/pca.min.js"></script>` → `window.PCA` 
+- **🌍 Browser (ESM)**: `import PCA from 'https://cdn.jsdelivr.net/npm/pca-js@2.0.6/+esm'`
 
 Can use unpkg etc but only jsdelivr is actively supported and tested by me. Open an issue for better CDN recommends.
 
