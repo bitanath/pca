@@ -1,6 +1,6 @@
 {
   "name": "pca-js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Principal Components Analysis in javascript",
   "main": "./dist/pca.js",
   "module": "./dist/pca.mjs",
