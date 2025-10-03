@@ -15,12 +15,12 @@ Massive changes in v2:
 
 **🛠️ Node.js CommonJS**: `const PCA = require('pca-js')`
 **🛠️ Node.js ESM**: `import PCA from 'pca-js'`
-**🌍 Browser (Global)**: `<script src="https://cdn.jsdelivr.net/npm/pca-js/dist/pca.js"></script>` → `window.PCA` 
-**🌍 Browser (ESM)**: `import PCA from 'https://cdn.jsdelivr.net/npm/pca-js/dist/pca.mjs'`
 
-### CDN: 
-**UMD (Browser Global):** [https://cdn.jsdelivr.net/npm/pca-js/dist/pca.js](https://cdn.jsdelivr.net/npm/pca-js/dist/pca.js)
-**ESM (Browser Module):** [https://cdn.jsdelivr.net/npm/pca-js/dist/pca.mjs](https://cdn.jsdelivr.net/npm/pca-js/dist/pca.mjs)
+Refer to the updated CDN links at [JSDELIVR](https://www.jsdelivr.com/package/npm/pca-js). The below are just provided as an example.
+**🌍 Browser (Global)**: `<script src="https://cdn.jsdelivr.net/npm/pca-js@2.0.5/dist/pca.min.js"></script>` → `window.PCA` 
+**🌍 Browser (ESM)**: `import PCA from 'https://cdn.jsdelivr.net/npm/pca-js@2.0.5/+esm'`
+
+You could use unpkg etc but only jsdelivr is actively supported and tested by me. Open an issue if you have better CDN recommends.
 
 ## How to use the API
 
