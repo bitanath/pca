@@ -126,7 +126,6 @@ Compare this to the original data to understand just how lossy the compression w
 ```
 ## List of Methods
 
-
 #### computeDeviationMatrix(data) 
 Find centered matrix from original data
 
@@ -137,7 +136,7 @@ Find deviation from mean for values in matrix
 Singular Value Decomposition of matrix
 
 #### computePercentageExplained(allvectors, ...selected)
-Find percentage explained variance by selected vectors as opposed to the whole
+Find the cumulative percentage explained variance by selected vectors (select vectors accordingly to view specific explained variance)
 
 #### computeOriginalData(compressedData,selectedVectors,avgData)
 Get original data from the adjusted data after selecting a few eigenvectors
@@ -156,5 +155,7 @@ Same as computeAdjustedData(initialData,vectors[0]). Selecting only the top eige
 
 
 ## License (has been changed following v2.0 release)
-This license will remain consistent going forward with subsequent versions
+This license will remain consistent going forward with subsequent versions. 
+The license is GPL which is a better license imho for copyleft and packages that might derive this package.
+Was MIT earlier.
 `LICENSE: GPL 3.0`
