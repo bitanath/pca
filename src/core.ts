@@ -1,4 +1,4 @@
-import { unitSquareMatrix, subtract, scale, multiply, transpose, format } from "./utils.js";
+import { unitSquareMatrix, subtract, scale, multiply, multiplyAndScale, transpose, format } from "./utils.js";
 import type { Matrix, Vector, EigenObject } from "./type.js";
 
 import { svd } from "./svd.js";
@@ -11,7 +11,7 @@ import { svd } from "./svd.js";
  */
 export function computeDeviationMatrix(matrix:Matrix):Matrix {
   let unit = unitSquareMatrix(matrix.length);
-  return subtract(matrix, scale(multiply(unit, matrix), 1 / matrix.length));
+  return subtract(matrix, multiplyAndScale(unit, matrix, 1 / matrix.length));
 }
 
 /**
@@ -80,7 +80,7 @@ export function computeAdjustedData(data:Matrix, ...vectorObjs:EigenObject[]) {
   let matrixMinusMean = computeDeviationMatrix(data);
   let adjustedData = multiply(vectors, transpose(matrixMinusMean));
   let unit = unitSquareMatrix(data.length);
-  let avgData = scale(multiply(unit, data), -1 / data.length); //NOTE get the averages to add back
+  let avgData = multiplyAndScale(unit, data, -1 / data.length);
 
   let formattedAdjustData = format(adjustedData, 2);
   return {
@@ -139,3 +139,4 @@ export function analyseTopResult(data:Matrix) {
   let selected = sorted[0]!;
   return computeAdjustedData(data, selected);
 }
+

@@ -5,7 +5,7 @@ Massive changes in v2:
 - Test cases to prevent regressions and keep behavior consistent
 - Package level tests in order to prevent downstream breakages on dependents
 
-**Bugfixes:** Closed the 4 open issues with chonky fixes. Closed all PRs since full rewrite. Open new Issues as required.
+**Bugfixes:** Closed the 4 open issues with chonky fixes. Closed all PRs since full rewrite. Basically optimized matmul ops now to prevent OOMs and optimized build processes to port typescript. Feel free to Open new Issues/PRs as required.
 
 **How to use now:** Same as below except for the changed CDN links. I've inline edited the older readme in order to accurately reflect links and examples using modern ESM/UMD/CJS. 
 
@@ -154,17 +154,7 @@ Get the principal components of data using the steps outlined above.
 #### analyseTopResult(initialData)
 Same as computeAdjustedData(initialData,vectors[0]). Selecting only the top eigenvector which explains the most variance.
 
-#### transpose(A)
-Utility function to transpose a matrix A to A(T)
 
-#### multiply(A,B)
-Utility function to multiply AXB
-
-#### clone(A)
-Utility function to clone a matrix A
-
-#### scale(A,n)
-Utility function to scale all elements in A by a factor of n
-
-
-`LICENSE: MIT`
+## License (has been changed following v2.0 release)
+This license will remain consistent going forward with subsequent versions
+`LICENSE: GPL 3.0`

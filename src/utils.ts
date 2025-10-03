@@ -16,13 +16,11 @@ export function format(data:Matrix, precision:number):Matrix {
 }
 
 /**
- * Deep Clones a matrix
+ * Deep Clones a matrix in an optimal fashion
  * @param {Matrix} arr 
  */
 export function clone(arr:Matrix):Matrix{
-    let string = JSON.stringify(arr);
-    let result = JSON.parse(string);
-    return result;
+    return arr.map(row => Array.from(new Float64Array(row)));
 }
 
 /**
@@ -31,23 +29,28 @@ export function clone(arr:Matrix):Matrix{
  * @param {Matrix} b
  */
 export function multiply(a:Matrix, b:Matrix):Matrix {
+    //Changes for issue #11 OutOfMemoryError for moderately large datasets
     assertValidMatrices(a, b, "a", "b")
     
     const aRows = a.length;
-    const aCols = a[0]!.length;
-    const bRows = b.length;
-    const bCols = b[0]!.length;
+    const aCols = a[0].length;
+    const bCols = b[0].length;
 
-    const result: Matrix = Array.from({ length: aRows }, () => Array(bCols).fill(0));
+    const flat = new Float64Array(aRows * bCols);
+    
     for (let i = 0; i < aRows; i++) {
-        const aRow = a[i];
         for (let k = 0; k < aCols; k++) {
-            const aVal = aRow![k];
-            const bRow = b[k];
+            const aVal = a[i][k];
+            const iOffset = i * bCols;
             for (let j = 0; j < bCols; j++) {
-                result[i]![j]! += aVal! * bRow![j]!;
+                flat[iOffset + j] += aVal * b[k][j];
             }
         }
+    }
+    
+    const result: Matrix = [];
+    for (let i = 0; i < aRows; i++) {
+        result[i] = Array.from(flat.subarray(i * bCols, (i + 1) * bCols));
     }
     return result;
 }
@@ -92,6 +95,40 @@ export function scale(matrix:Matrix, factor:number):Matrix {
         for (var j = 0; j < aCols; j++) {
             result[i]![j]! = matrix[i]![j]! * factor;
         }
+    }
+    return result;
+}
+
+/**
+ * Fix for #11, OOM on moderately large datasets, fuses scale and multiply into a single operation to save memory
+ * 
+ * @param {Matrix} a 
+ * @param {Matrix} b 
+ * @param {number} factor 
+ * @returns 
+ */
+export function multiplyAndScale(a: Matrix, b: Matrix, factor: number): Matrix {
+    assertValidMatrices(a, b, "a", "b")
+    
+    const aRows = a.length;
+    const aCols = a[0].length;
+    const bCols = b[0].length;
+
+    const flat = new Float64Array(aRows * bCols);
+    
+    for (let i = 0; i < aRows; i++) {
+        for (let k = 0; k < aCols; k++) {
+            const aVal = a[i][k] * factor;
+            const iOffset = i * bCols;
+            for (let j = 0; j < bCols; j++) {
+                flat[iOffset + j] += aVal * b[k][j];
+            }
+        }
+    }
+    
+    const result: Matrix = [];
+    for (let i = 0; i < aRows; i++) {
+        result[i] = Array.from(flat.subarray(i * bCols, (i + 1) * bCols));
     }
     return result;
 }
