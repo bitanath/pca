@@ -1,15 +1,8 @@
-# New in v2 🌟
-Massive changes in v2:
-- Rewrote the entire codebase to typescript 
-- Rollup to UMD, CJS and ESM whichever you prefer
-- Test cases to prevent regressions and keep behavior consistent
-- Package level tests in order to prevent downstream breakages on dependents
-
-**Bugfixes:** Closed the 4 open issues with chonky fixes. Closed all PRs since full rewrite. Basically optimized matmul ops now to prevent OOMs and optimized build processes to port typescript. Feel free to Open new Issues/PRs as required.
-
-**How to use now:** Same as below except for the changed CDN links. I've inline edited the older readme in order to accurately reflect links and examples using modern ESM/UMD/CJS. 
+`npm install pca-js`
 
 # Principal Components Analysis in Javascript!
+
+_written in pure typescript, bundled for UMD, ESM and CJS_
 
 ### Node:
 
